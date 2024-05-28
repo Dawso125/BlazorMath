@@ -1,0 +1,32 @@
+﻿@page "/add-numbers"
+@using System.Net.Http.Json
+@inject HttpClient Http
+
+<h3>Add Numbers</h3>
+
+<div>
+    <label>First Number: </label>
+    <input type="number" @bind="FirstNumber" />
+</div>
+<div>
+    <label>Second Number: </label>
+    <input type="number" @bind="SecondNumber" />
+</div>
+<div>
+    <button @onclick="AddNumber">Add</button>
+</div>
+<div>
+    <p>Result: @Result</p>
+</div>
+
+@code {
+    private int FirstNumber { get; set; }
+    private int SecondNumber { get; set; }
+    private int Result { get; set; }
+
+    private async Task AddNumber()
+    {
+        var response = await Http.GetFromJsonAsync<int>($"api/Math?firstNumber={FirstNumber}&secondNumber={SecondNumber}");
+        Result = response;
+    }
+}
