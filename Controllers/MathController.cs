@@ -11,7 +11,12 @@ namespace NewBlazorApp.Controllers
         public ActionResult<int> Get(int firstNumber, int secondNumber)
         {
             int result = firstNumber + secondNumber;
-            return Ok(result);
+
+            if (result <= int.MaxValue)
+            {
+                return Ok(result);
+            }
+            return BadRequest();
             
         }
     }
